@@ -24,7 +24,7 @@ export class AddUser {
     const user = message.guild.members.cache.find( member => member.user.username == userToAdd );
     
     if ( !user ) 
-      return message.reply(`User ${userToRemove} not found`);
+      return message.reply(`User ${userToAdd} not found`);
     
     try {
       const roleToAdd = message.member.guild.roles.cache.find( role => role.name == 'streamer approved' );
