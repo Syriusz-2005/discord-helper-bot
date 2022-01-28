@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import Discord, { Intents } from "discord.js";
+import express from "express";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -32,4 +33,10 @@ client.on('ready', () =>{
 
 client.login( process.env.TOKEN );
 
-
+const app = express();
+app.listen( process.env.PORT || 3000, () => {
+  console.log('App is listening on port ' + process.env.PORT || 3000)
+});
+app.get('/', (req, res) =>{
+  res.send('App is working');
+})
