@@ -97,11 +97,11 @@ export class AddThread {
 	 * @param {Array<string>} splitedMessage
 	 * @param {Discord.Message} message
 	 */
-	process(splitedMessage, message) {
-    message.startThread({
+	async process(splitedMessage, message) {
+    const newThread = await message.startThread({
       name: splitedMessage[1],
       autoArchiveDuration: 60,
       reason: `Thread created by ${message.author.username}`
-    })
+    });
   }
 }

@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { AddThread, AddUser, RemoveUser } from "./commands.js";
+import { AddGuild } from "./commands/createGuild.js";
 
 const client = new Discord.Client({
   intents: [ Intents.FLAGS.GUILDS, "GUILDS", "DIRECT_MESSAGES", "GUILD_MESSAGES" ],
@@ -16,7 +17,8 @@ client.on('ready', () =>{
   const commands = [
     new AddUser( client ),
     new RemoveUser( client ),
-    new AddThread( client )
+    new AddThread( client ),
+    new AddGuild( client ),
   ]
 
   client.on('message', message => {
