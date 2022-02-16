@@ -5,7 +5,7 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
-import { AddUser, RemoveUser } from "./commands.js";
+import { AddThread, AddUser, RemoveUser } from "./commands.js";
 
 const client = new Discord.Client({
   intents: [ Intents.FLAGS.GUILDS, "GUILDS", "DIRECT_MESSAGES", "GUILD_MESSAGES" ],
@@ -15,8 +15,10 @@ client.on('ready', () =>{
   console.log('logged in')
   const commands = [
     new AddUser( client ),
-    new RemoveUser( client )
+    new RemoveUser( client ),
+    new AddThread( client )
   ]
+
   client.on('message', message => {
     const splitedMessage = message.content.split(' ');
     
@@ -24,9 +26,14 @@ client.on('ready', () =>{
     if ( rightCommand ) {
       const correctRole = message.member.roles.cache.some( role => role.name === rightCommand.role )
       if ( !correctRole ) return;
-      rightCommand.process( splitedMessage, message );
+      try {
+        rightCommand.process( splitedMessage, message );
+      } catch( err ) {
+        message.reply('invalid command usage');
+      }
     }
-  })
+  });
+  
   
 });
 
