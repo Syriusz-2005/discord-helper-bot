@@ -25,13 +25,14 @@ client.on('ready', () =>{
     new Guild( client ),
   ]
 
-  client.on('message', message => {
+  client.on('message', async message => {
     const splitedMessage = message.content.split(' ');
     
     const rightCommand = commands.find( command => command.name == splitedMessage[0] );
     if ( rightCommand ) {
       const correctRole = message.member.roles.cache.some( role => role.name === rightCommand.role )
       if ( !correctRole ) return;
+      message.guild.members.fetch()
       try {
         rightCommand.process( splitedMessage, message );
       } catch( err ) {
