@@ -19,6 +19,14 @@ export class Guild {
     await userToAdd.roles.add( guildRole );
   }
 
+  async remove( guildRole, userName ) {
+    const userToRemove = guildRole.guild.members.cache.find(
+			(member) => member.user.username == userName
+		);
+
+    await userToRemove.roles.remove( guildRole );
+  }
+
 	/**
 	 *
 	 * @param {Array<string>} splitedMessage
@@ -30,17 +38,22 @@ export class Guild {
       return;
     }
 
-    const user = message.guild.members.cache.find(
+    const author = message.guild.members.cache.find(
       (member) => member.user.username == message.author.username
     );
-    const guildRole = user.roles.cache.find( role => role.name.startsWith('guild-') );
+    const guildRole = author.roles.cache.find( role => role.name.startsWith('guild-') );
 
+    const user = splitedMessage[2].replace(/_/g, " ");
     switch (splitedMessage[1]) {
       case 'add':
-        await this.add( guildRole, splitedMessage[2] );
+        await this.add( guildRole, user );
         message.reply(`User ${splitedMessage[2]} was added to the guild`);
         break;
     
+      case 'remove':
+        await this.remove( guildRole, user );
+        message.reply(`User ${splitedMessage[2]} is no longer in the guild`);
+      
       default:
         break;
     }

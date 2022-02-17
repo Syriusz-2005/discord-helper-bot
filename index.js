@@ -11,7 +11,7 @@ import { RemoveGuild } from "./commands/removeGuild.js";
 import { Guild } from "./commands/guild.js";
 
 const client = new Discord.Client({
-  intents: [ Intents.FLAGS.GUILDS, "GUILDS", "DIRECT_MESSAGES", "GUILD_MESSAGES" ],
+  intents: [ Intents.FLAGS.GUILDS, "GUILDS", "DIRECT_MESSAGES", "GUILD_MESSAGES", "GUILD_INTEGRATIONS" ],
 });
 
 client.on('ready', () =>{

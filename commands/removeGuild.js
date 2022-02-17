@@ -29,7 +29,7 @@ export class RemoveGuild {
     }
 
 		await message.guild.channels.cache
-      .find( cahnnel => cahnnel.name == `Guild ${guildRole.name.replace('guild-', '')}` )
+      .find( cahnnel => cahnnel.name == `Guild ${guildRole.name.replace('guild-', '')} only` )
 			?.delete?.('Guild deleted')
     
 
