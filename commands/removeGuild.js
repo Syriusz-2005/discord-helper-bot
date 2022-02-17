@@ -7,7 +7,7 @@ export class RemoveGuild {
 	 */
 	constructor(client) {
 		this.name = "!removeGuild";
-		this.role = "Respect +";
+		this.role = "Guild master";
 		this.client = client;
 	}
 
@@ -28,8 +28,14 @@ export class RemoveGuild {
       return;
     }
 
-    await message.guild.roles.delete( await message.guild.roles.fetch( guildRole.id ) )
+		await message.guild.channels.cache
+      .find( cahnnel => cahnnel.name == `Guild ${guildRole.name.replace('guild-', '')}` )
+			?.delete?.('Guild deleted')
     
+
+    await message.guild.roles.delete( await message.guild.roles.fetch( guildRole.id ) )
+		await user.roles.remove( message.guild.roles.cache.find( role => role.name == 'Guild master' ) );
+
     message.reply(`Guild was removed.`);
   }
 }

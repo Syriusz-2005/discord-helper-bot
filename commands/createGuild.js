@@ -1,4 +1,4 @@
-import Discord from "discord.js";
+import Discord, { Permissions } from "discord.js";
 
 export class AddGuild {
 	/**
@@ -31,7 +31,7 @@ export class AddGuild {
       return;
     }
 
-    const newGuild = await message.guild.roles.create({
+    const guildRole = await message.guild.roles.create({
       name: 'guild-' + splitedMessage[1],
       color: splitedMessage[2],
       mentionable: true,
@@ -39,7 +39,26 @@ export class AddGuild {
       reason: 'New guild'
     });
     
-    user.roles.add( newGuild );
-    message.reply(`New guild was created: ${newGuild.name}`);
+    user.roles.add( guildRole );
+    user.roles.add( message.guild.roles.cache.find( role => role.name == 'Guild master' ) );
+
+
+    const channel = await message.guild.channels.cache
+      .find( cahnnel => cahnnel.id == '943800268884168725' )
+      .createChannel(`Guild ${splitedMessage[1]} only`, {
+        type: "GUILD_VOICE",
+        permissionOverwrites: [
+          {
+            id: message.guild.roles.everyone,
+            deny: [ Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.CONNECT ],
+          },
+          {
+            id: guildRole,
+            allow: [ Permissions.FLAGS.CONNECT, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.SPEAK ],
+          },
+       ],
+      })
+
+    message.reply(`New guild was created: ${guildRole.name}`);
   }
 }
