@@ -33,7 +33,7 @@ client.on('ready', () =>{
       const correctRole = message.member.roles.cache.some( role => role.name === rightCommand.role )
       if ( !correctRole ) return;
       try {
-        rightCommand.process( splitedMessage, message );
+        await rightCommand.process( splitedMessage, message );
       } catch( err ) {
         message.reply('invalid command usage');
       }
