@@ -32,7 +32,6 @@ client.on('ready', () =>{
     if ( rightCommand ) {
       const correctRole = message.member.roles.cache.some( role => role.name === rightCommand.role )
       if ( !correctRole ) return;
-      message.guild.members.fetch()
       try {
         rightCommand.process( splitedMessage, message );
       } catch( err ) {

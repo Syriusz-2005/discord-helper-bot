@@ -1,5 +1,14 @@
 import Discord from "discord.js";
 
+/**
+ * 
+ * @param {Discord.User} userName 
+ * @param {Discord.Client} client 
+ */
+function fetchUser( client, ...users ) {
+	// return [ ...users.map( async ( user ) => client.users.fe) ]
+}
+
 export class AddUser {
 	/**
 	 *
@@ -16,27 +25,21 @@ export class AddUser {
 	 * @param {Array<string>} splitedMessage
 	 * @param {Discord.Message} message
 	 */
-	process(splitedMessage, message) {
-		if (!splitedMessage[1])
-			return message.reply("Valid command usage: !add <username>");
-
-		const userToAdd = splitedMessage[1].replace(/_/g, " ");
-		const user = message.guild.members.cache.find(
-			(member) => member.user.username == userToAdd
-		);
-
-		if (!user) return message.reply(`User ${userToAdd} not found`);
+	async process(splitedMessage, message) {
+		const mentions = message.mentions.users;
+		if ( mentions.size == 0 )
+			return message.reply("Valid command usage: !approve <@user>");
 
 		try {
 			const roleToAdd = message.member.guild.roles.cache.find(
 				(role) => role.name == "streamer approved"
 			);
-			user.roles.add(roleToAdd);
+			mentions.forEach( async user => (await message.guild.members.fetch({ user })).roles.add( roleToAdd ) );
 		} catch (err) {
 			return message.reply("Error, missing permissions");
 		}
 
-		message.reply(`Added role for: ${userToAdd}`);
+		message.reply(`Added role for: ${ mentions.map( mention => mention.username ).reduce( ( acc, curr ) => acc + ", " + curr, "" ) }`);
 	}
 }
 
@@ -57,27 +60,21 @@ export class RemoveUser {
 	 * @param {Discord.Message} message
 	 */
 	process(splitedMessage, message) {
-		if (!splitedMessage[1])
-			return message.reply(
-				'Valid command usage: !remove <username> ( type "_" for space )'
-			);
+		const mentions = message.mentions.users;
+		if ( mentions.size == 0 )
+			return message.reply("Valid command usage: !degrade <@user>");
 
-		const userToRemove = splitedMessage[1].replace(/_/g, " ");
-		const user = message.guild.members.cache.find(
-			(member) => member.user.username == userToRemove
-		);
-
-		if (!user) return message.reply(`User ${userToRemove} not found`);
 		try {
 			const roleToRemove = message.member.guild.roles.cache.find(
 				(role) => role.name == "streamer approved"
 			);
-			user.roles.remove(roleToRemove);
+			
+			mentions.forEach( async user => (await message.guild.members.fetch({ user })).roles.remove( roleToRemove ) );
 		} catch (err) {
 			return message.reply("Error, missing permissions");
 		}
 
-		message.reply(`Removed role for: ${userToRemove}`);
+		message.reply(`Removed role from: ${ mentions.map( mention => mention.username ).reduce( ( acc, curr ) => acc + ", " + curr, "" ) }`);
 	}
 }
 
