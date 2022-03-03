@@ -1,21 +1,16 @@
 import Discord from "discord.js";
-
-/**
- * 
- * @param {Discord.User} userName 
- * @param {Discord.Client} client 
- */
-function fetchUser( client, ...users ) {
-	// return [ ...users.map( async ( user ) => client.users.fe) ]
-}
-
-export class AddUser {
+import { Command } from "./commands/command.js";
+export class AddUser extends Command {
 	/**
 	 *
 	 * @param {Discord.Client} client
 	 */
 	constructor(client) {
-		this.name = "!approve";
+		super({
+			description: "Dodaje użytkownika do strefy prywatnej 'z widzami'",
+			usage: "...@<użytkownik> Kto zna js, wie co znaczą 3 kropki:)"
+		})
+		this.name = "h!approve";
 		this.role = "Streamer";
 		this.client = client;
 	}
@@ -43,13 +38,17 @@ export class AddUser {
 	}
 }
 
-export class RemoveUser {
+export class RemoveUser extends Command {
 	/**
 	 *
 	 * @param {Discord.Client} client
 	 */
 	constructor(client) {
-		this.name = "!degrade";
+		super({
+			description: "Usuwa użytkownika ze strefy prywatnej 'z widzami'",
+			usage: "...@<użytkownik>"
+		})
+		this.name = "h!degrade";
 		this.role = "Streamer";
 		this.client = client;
 	}
