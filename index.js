@@ -13,6 +13,15 @@ import { DisplayHelp } from "./commands/help.js";
 
 const client = new Discord.Client({
   intents: [ Intents.FLAGS.GUILDS, "GUILDS", "DIRECT_MESSAGES", "GUILD_MESSAGES", "GUILD_INTEGRATIONS" ],
+  presence: {
+    status: "online",
+    activities: [
+      {
+        name: "Stworzony przez @_Syriusz_ (Pan Mateusz)",
+        type: "PLAYING"
+      }
+    ]
+  }
 });
 
 client.on('ready', () =>{
@@ -41,8 +50,6 @@ client.on('ready', () =>{
       }
     }
   });
-  
-  
 });
 
 
