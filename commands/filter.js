@@ -22,7 +22,7 @@ export class UseFilter extends Command  {
 	 * @param {Discord.Message} message
 	 */
 	async process(splitedMessage, message, commands ) {
-    if ( /kurwa|pierdol|fuck|huj|jebac|jebany|pizda|dziwka|hój/g.test( message.content.toLowerCase() ) ) {
+    if ( /kurwa|pierdol|fuck|huj|jebac|jebany|pizda|dziwka|hój|kurwe|kurwę|kurwą|kurw/g.test( message.content.toLowerCase() ) ) {
       message.delete();
       message.channel.send('Gdy jestem aktywny, nie życzę sobie przeklinania! Z góry dziękuję.');
     }
