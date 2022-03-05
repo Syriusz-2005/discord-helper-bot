@@ -41,7 +41,18 @@ client.on('ready', () =>{
     
     const rightCommand = commands.find( command => command.name == splitedMessage[0] );
     if ( rightCommand ) {
-      const correctRole = message.member.roles.cache.some( role => role.name === rightCommand.role )
+
+      if ( rightCommand.requiredChannelId ) if ( !rightCommand.requiredChannelId.some( channelId => channelId == message.channel.id ) ) {
+        return message.reply('This command does not work here!');
+      }
+
+      let correctRole = false;
+      if ( rightCommand.role instanceof Array ) {
+        correctRole = message.member.roles.cache.some( role => rightCommand.role.some( r => r == role.name ) )
+      } else {
+        correctRole = message.member.roles.cache.some( role => role.name === rightCommand.role );
+      }
+
       if ( !correctRole ) return message.reply("You don't have permission to use this command");
       try {
         await rightCommand.process( splitedMessage, message, commands );

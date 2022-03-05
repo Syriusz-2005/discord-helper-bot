@@ -77,14 +77,19 @@ export class RemoveUser extends Command {
 	}
 }
 
-export class AddThread {
+export class AddThread extends Command {
 	/**
 	 *
 	 * @param {Discord.Client} client
 	 */
 	constructor(client) {
-		this.name = "!createThread";
-		this.role = "Respect +";
+		super({
+			usage: "brak argumentów",
+			description: "Tworzy nowy wątek pomocy, dostępne tylko dla kanał #uzyskaj-pomoc",
+			requiredChannelId: [ "949611000171233343" ]
+		})
+		this.name = "h!getHelp";
+		this.role = [ "Respect +", "@everyone" ];
 		this.client = client;
 	}
 
@@ -95,9 +100,20 @@ export class AddThread {
 	 */
 	async process(splitedMessage, message) {
     const newThread = await message.startThread({
-      name: splitedMessage[1],
+      name: `Wątek pomocy nr ${Math.floor( Math.random() * 90000 )}`,
       autoArchiveDuration: 60,
       reason: `Thread created by ${message.author.username}`
     });
+
+		await newThread.send({
+			content: `
+Wątek pomocy został utworzony przez użytkownika: <@${message.author.id}>
+<@&919183290936737873> zaraz ci pomoże!
+			`,
+			allowedMentions: {
+				parse: [ "roles" ]
+			}
+		});
+		message.delete();
   }
 }

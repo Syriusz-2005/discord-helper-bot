@@ -4,9 +4,11 @@
 export class Command {
   constructor({
     usage,
-    description
+    description,
+    requiredChannelId
   }) {
     this.usage = usage;
     this.description = description;
+    this.requiredChannelId = requiredChannelId;
   }
 }
