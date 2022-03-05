@@ -10,6 +10,7 @@ import { AddGuild } from "./commands/createGuild.js";
 import { RemoveGuild } from "./commands/removeGuild.js";
 import { Guild } from "./commands/guild.js";
 import { DisplayHelp } from "./commands/help.js";
+import { UseFilter } from "./commands/filter.js";
 
 const client = new Discord.Client({
   intents: [ Intents.FLAGS.GUILDS, "GUILDS", "DIRECT_MESSAGES", "GUILD_MESSAGES", "GUILD_INTEGRATIONS" ],
@@ -34,12 +35,13 @@ client.on('ready', () =>{
     new RemoveGuild( client ),
     new Guild( client ),
     new DisplayHelp( client ),
+    new UseFilter( client ),
   ]
 
   client.on('message', async message => {
     const splitedMessage = message.content.split(' ');
     
-    const rightCommand = commands.find( command => command.name == splitedMessage[0] );
+    const rightCommand = commands.find( command => command.name == splitedMessage[0] || command.name == "any" );
     if ( rightCommand ) {
 
       if ( rightCommand.requiredChannelId ) if ( !rightCommand.requiredChannelId.some( channelId => channelId == message.channel.id ) ) {
