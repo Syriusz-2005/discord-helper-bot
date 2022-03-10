@@ -10,7 +10,7 @@ export class AlertsManager extends Command  {
     super({
       usage: "<enable|disable>",
       description: "Użyj tej komendy aby włączyć/wyłączyć powiadomienia o streamach i odcinkach",
-
+      requiredChannelId: [ "949009012156928001" ]
     })
 		this.name = "h!alerts";
 		this.role = "@everyone";
