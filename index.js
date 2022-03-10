@@ -11,6 +11,7 @@ import { RemoveGuild } from "./commands/removeGuild.js";
 import { Guild } from "./commands/guild.js";
 import { DisplayHelp } from "./commands/help.js";
 import { UseFilter } from "./commands/filter.js";
+import { EventManager, ScheduledEvent } from "./events/eventManager.js";
 
 const client = new Discord.Client({
   intents: [ Intents.FLAGS.GUILDS, "GUILDS", "DIRECT_MESSAGES", "GUILD_MESSAGES", "GUILD_INTEGRATIONS" ],
@@ -25,7 +26,7 @@ const client = new Discord.Client({
   }
 });
 
-client.on('ready', () =>{
+client.on('ready', () => {
   console.log('logged in')
   const commands = [
     new AddUser( client ),
@@ -63,6 +64,17 @@ client.on('ready', () =>{
       }
     }
   });
+
+  const eventManager = new EventManager();
+  eventManager.insertEvent(new ScheduledEvent({
+    day: undefined,
+    hour: 16,
+    minute: 5,
+    refreshTimeInMinutes: 1,
+    callback: () => {
+      console.log('time now!');
+    }
+  }))
 });
 
 
