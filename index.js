@@ -12,6 +12,7 @@ import { Guild } from "./commands/guild.js";
 import { DisplayHelp } from "./commands/help.js";
 import { UseFilter } from "./commands/filter.js";
 import { EventManager, ScheduledEvent } from "./events/eventManager.js";
+import { AlertsManager } from "./commands/alerts.js";
 
 const client = new Discord.Client({
   intents: [
@@ -43,43 +44,46 @@ client.on("ready", (cl) => {
     new Guild(client),
     new DisplayHelp(client),
     new UseFilter(client),
+    new AlertsManager(client),
   ];
 
   client.on("message", async (message) => {
     const splitedMessage = message.content.split(" ");
 
-    const rightCommand = commands.find(
+    const rightCommands = commands.filter(
       (command) => command.name == splitedMessage[0] || command.name == "any"
     );
-    if (rightCommand) {
-      if (rightCommand.requiredChannelId)
-        if (
-          !rightCommand.requiredChannelId.some(
-            (channelId) => channelId == message.channel.id
-          )
-        ) {
-          return message.reply("This command does not work here!");
+    rightCommands.forEach(async (rightCommand) => {
+      if (rightCommand) {
+        if (rightCommand.requiredChannelId)
+          if (
+            !rightCommand.requiredChannelId.some(
+              (channelId) => channelId == message.channel.id
+            )
+          ) {
+            return message.reply("This command does not work here!");
+          }
+
+        let correctRole = false;
+        if (rightCommand.role instanceof Array) {
+          correctRole = message.member.roles.cache.some((role) =>
+            rightCommand.role.some((r) => r == role.name)
+          );
+        } else {
+          correctRole = message.member.roles.cache.some(
+            (role) => role.name === rightCommand.role
+          );
         }
-
-      let correctRole = false;
-      if (rightCommand.role instanceof Array) {
-        correctRole = message.member.roles.cache.some((role) =>
-          rightCommand.role.some((r) => r == role.name)
-        );
-      } else {
-        correctRole = message.member.roles.cache.some(
-          (role) => role.name === rightCommand.role
-        );
+        if (!correctRole)
+          return message.reply("You don't have permission to use this command");
+        try {
+          await rightCommand.process(splitedMessage, message, commands);
+        } catch (err) {
+          console.log(err);
+          message.reply("invalid command usage");
+        }
       }
-
-      if (!correctRole)
-        return message.reply("You don't have permission to use this command");
-      try {
-        await rightCommand.process(splitedMessage, message, commands);
-      } catch (err) {
-        message.reply("invalid command usage");
-      }
-    }
+    });
   });
 
   client.guilds.cache.each((guild) => {
@@ -99,16 +103,22 @@ client.on("ready", (cl) => {
       //     },
       //   })
       // );
-      eventManager.insertEvent(new ScheduledEvent({
-        day: undefined,
-        hour: 21,
-        minute: 37,
-        refreshTimeInMinutes: 1,
-        callback: async () => {
-          const channel = await guild.channels.fetch('949008251394089010', { force: true }).catch( err => {} );
-          channel?.send?.(`Minuta ciszy dla największego z polaków... <:Trollpapaj:951219313333895288>`);
-        }
-      }))
+      eventManager.insertEvent(
+        new ScheduledEvent({
+          day: undefined,
+          hour: 21,
+          minute: 37,
+          refreshTimeInMinutes: 1,
+          callback: async () => {
+            const channel = await guild.channels
+              .fetch("949008251394089010", { force: true })
+              .catch((err) => {});
+            channel?.send?.(
+              `Minuta ciszy dla największego z polaków... <:Trollpapaj:951219313333895288>`
+            );
+          },
+        })
+      );
     }
   });
 });
