@@ -52,35 +52,42 @@ export class EventManager {
     this.#runLoop();
   }
 
+  
+
   #runLoop() {
     setInterval(() => {
-      const now = new Date();
-      this.#events
+      this.#events = this.#events
         .map((event) => {
           if (!event.locked) return event;
           
           const ev = new ScheduledEvent(event.getData());
           //if the lock time is smaller then current time, set lock to false
-          if (event.lockReleaseAt < Date.now()) ev.locked = false;
+          if (event.lockReleaseAt < Date.now() ) ev.locked = false;
 
           return ev;
         })
-        .filter(
-          (event) =>
-            (event.day != undefined ? now.getDate() == event.day : true) &&
-            (event.hour != undefined ? now.getHours() == event.hour : true) &&
-            (event.minute != undefined
-              ? now.getMinutes() == event.minute
-              : true ) &&
-            event.locked == false
-        )
         .map((event) => {
-          event.locked = true;
-          event.lockReleaseAt =
-            Date.now() + event.refreshTimeInMinutes * 60 * 1000;
-          event.callback.call();
+          if ( this.#isTime( event ) ) {
+
+            event.locked = true;
+            event.lockReleaseAt =
+            Date.now() + ( event.refreshTimeInMinutes * 60 * 1000 );
+            
+            event.callback.call();
+          }
+            return event;
         });
     }, 1000 * 5);
+  }
+
+  #isTime( event ) {
+    const now = new Date();
+    return (event.day != undefined ? now.getDate() == event.day : true) &&
+      (event.hour != undefined ? now.getHours() == event.hour : true) &&
+      (event.minute != undefined
+        ? now.getMinutes() == event.minute
+        : true) &&
+      event.locked == false;
   }
 
   /**
