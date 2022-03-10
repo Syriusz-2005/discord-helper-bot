@@ -18,7 +18,7 @@ const client = new Discord.Client({
     status: "online",
     activities: [
       {
-        name: "Stworzony przez @_Syriusz_ (Pan Mateusz)",
+        name: "h!help",
         type: "PLAYING"
       }
     ]
