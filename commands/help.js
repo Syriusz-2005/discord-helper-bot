@@ -12,7 +12,7 @@ export class DisplayHelp extends Command  {
       description: "Użyj tej komendy aby uzyskać pomoc"
     })
 		this.name = "h!help";
-		this.role = "@everyone";
+		this.role = [ "@everyone" ];
 		this.client = client;
 	}
 

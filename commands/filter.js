@@ -12,7 +12,7 @@ export class UseFilter extends Command  {
       description: "Użyj tej komendy aby twoja wiadopmość została przefiltrowana 🤪"
     })
 		this.name = "any";
-		this.role = "@everyone";
+		this.role = [ "@everyone" ];
 		this.client = client;
 	}
 

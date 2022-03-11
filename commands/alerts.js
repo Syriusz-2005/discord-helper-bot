@@ -13,7 +13,7 @@ export class AlertsManager extends Command  {
       requiredChannelId: [ "949009012156928001" ]
     })
 		this.name = "h!alerts";
-		this.role = "@everyone";
+		this.role = [ "@everyone" ];
 		this.client = client;
 	}
 

@@ -11,7 +11,7 @@ export class AddUser extends Command {
 			usage: "...@<użytkownik> Kto zna js, wie co znaczą 3 kropki:)"
 		})
 		this.name = "h!approve";
-		this.role = "Streamer";
+		this.role = [ "Streamer" ];
 		this.client = client;
 	}
 
@@ -49,7 +49,7 @@ export class RemoveUser extends Command {
 			usage: "...@<użytkownik>"
 		})
 		this.name = "h!degrade";
-		this.role = "Streamer";
+		this.role = [ "Streamer" ];
 		this.client = client;
 	}
 

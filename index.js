@@ -6,14 +6,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { AddThread, AddUser, RemoveUser } from "./commands.js";
-import { AddGuild } from "./commands/createGuild.js";
-import { RemoveGuild } from "./commands/removeGuild.js";
-import { Guild } from "./commands/guild.js";
 import { DisplayHelp } from "./commands/help.js";
 import { UseFilter } from "./commands/filter.js";
 import { EventManager, ScheduledEvent } from "./events/eventManager.js";
 import { AlertsManager } from "./commands/alerts.js";
-
+import { ArrestManager } from "./commands/arrest.js";
+ 
 const client = new Discord.Client({
   intents: [
     Intents.FLAGS.GUILDS,
@@ -39,12 +37,10 @@ client.on("ready", (cl) => {
     new AddUser(client),
     new RemoveUser(client),
     new AddThread(client),
-    new AddGuild(client),
-    new RemoveGuild(client),
-    new Guild(client),
     new DisplayHelp(client),
     new UseFilter(client),
     new AlertsManager(client),
+    new ArrestManager(client),
   ];
 
   client.on("message", async (message) => {
@@ -64,16 +60,9 @@ client.on("ready", (cl) => {
             return message.reply("This command does not work here!");
           }
 
-        let correctRole = false;
-        if (rightCommand.role instanceof Array) {
-          correctRole = message.member.roles.cache.some((role) =>
-            rightCommand.role.some((r) => r == role.name)
+        const correctRole = message.member.roles.cache.some((role) =>
+            rightCommand.role.some((r) => r == role.name || r?.id == role.id)
           );
-        } else {
-          correctRole = message.member.roles.cache.some(
-            (role) => role.name === rightCommand.role
-          );
-        }
         if (!correctRole)
           return message.reply("You don't have permission to use this command");
         try {
