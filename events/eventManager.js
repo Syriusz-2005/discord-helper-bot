@@ -81,7 +81,9 @@ export class EventManager {
   }
 
   #isTime( event ) {
-    const now = new Date();
+    const d = new Date();
+    const now = new Date( d.getTime() + ( 1 /** h */ * 60 * 60 * 1000 ) );
+    console.log( now );
     return (event.day != undefined ? now.getDate() == event.day : true) &&
       (event.hour != undefined ? now.getHours() == event.hour : true) &&
       (event.minute != undefined
