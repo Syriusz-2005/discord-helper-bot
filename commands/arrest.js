@@ -36,11 +36,13 @@ export class ArrestManager extends Command {
       let msg = "";
 
       const user = message.mentions.users.at(0);
+      if ( !user ) throw new Error();
       const guildMember = await message.guild.members.fetch({ user });
       if (
         guildMember.roles.cache.some(
           (role) =>
-            role.id == "949986677798084608" || role.id == "919176352408674324"
+            role.id == "949986677798084608" /*admin*/ ||
+            role.id == "919176352408674324" /*alpha*/
         )
       ) {
         return message.reply("This user cannot be sent to the arrest!");
@@ -52,12 +54,13 @@ export class ArrestManager extends Command {
       `;
 
       if (splitedMessage[4] == "deleteMessages") {
-        guild.channels.cache.each(async (channel) => {
+        Promise.all( guild.channels.cache.map(async (channel) => {
           const messages = await channel?.messages?.fetch({ limit: 100 });
-          const removedMessages = messages
+          return await Promise.all( messages
             ?.filter((m) => m.author.id === message.mentions.users.at(0).id)
-            .map(async (message) => await message.delete());
-        });
+            .map(async (message) => await message.delete()));
+        }))
+        .then( message.reply('Removed all messages of the arrested user! ||Well... actually only from last 100 messages on each channel||') )
       }
 
       message.reply(msg);

@@ -108,7 +108,7 @@ export class AddThread extends Command {
 		await newThread.send({
 			content: `
 Wątek pomocy został utworzony przez użytkownika: <@${message.author.id}>
-<@&919183290936737873> zaraz ci pomoże!
+<@&950062539448938606> zaraz ci pomoże!
 			`,
 			allowedMentions: {
 				parse: [ "roles" ]
