@@ -14,11 +14,13 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/rest": "^0.3.0",
+    "canvas": "^2.9.0",
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
-    "node-fetch": "^3.2.0"
+    "node-fetch": "^3.2.0",
+    "pureimage": "^0.3.8"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

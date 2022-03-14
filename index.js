@@ -11,6 +11,7 @@ import { UseFilter } from "./commands/filter.js";
 import { EventManager, ScheduledEvent } from "./events/eventManager.js";
 import { AlertsManager } from "./commands/alerts.js";
 import { ArrestManager } from "./commands/arrest.js";
+import { TicTacToeGame } from "./commands/ticTacToe/index.js";
  
 const client = new Discord.Client({
   intents: [
@@ -19,6 +20,8 @@ const client = new Discord.Client({
     "DIRECT_MESSAGES",
     "GUILD_MESSAGES",
     "GUILD_INTEGRATIONS",
+    "DIRECT_MESSAGE_REACTIONS",
+    "GUILD_MESSAGE_REACTIONS"
   ],
   presence: {
     status: "online",
@@ -41,6 +44,7 @@ client.on("ready", (cl) => {
     new UseFilter(client),
     new AlertsManager(client),
     new ArrestManager(client),
+    new TicTacToeGame(client),
   ];
 
   client.on("message", async (message) => {
@@ -105,11 +109,11 @@ client.on("ready", (cl) => {
               .catch((err) => {});
             channel?.send?.(
               `Pan kiedyś stanął nad brzegiem,
-              Szukał ludzi gotowych pójść za Nim;
-              By łowić serca
-              Słów Bożych prawdą. 
-              ...
-              <:Trollpapaj:951219313333895288>`
+Szukał ludzi gotowych pójść za Nim;
+By łowić serca
+Słów Bożych prawdą. 
+...
+<:Trollpapaj:951219313333895288>`
             );
           },
         })
@@ -127,10 +131,10 @@ client.on("ready", (cl) => {
               .catch((err) => {});
             channel?.send?.(
               `O Panie, to Ty na mnie spojrzałeś,
-              Twoje usta dziś wyrzekły me imię.
-              Swoją barkę pozostawiam na brzegu,
-              Razem z Tobą nowy zacznę dziś łów.
-              ... <:Trollpapaj:951219313333895288>`
+Twoje usta dziś wyrzekły me imię.
+Swoją barkę pozostawiam na brzegu,
+Razem z Tobą nowy zacznę dziś łów.
+... <:Trollpapaj:951219313333895288>`
             );
           },
         })
