@@ -95,6 +95,118 @@ client.on("ready", (cl) => {
       eventManager.insertEvent(
         new ScheduledEvent({
           day: undefined,
+          weekDay: 1,
+          hour: 21,
+          minute: 37,
+          refreshTimeInMinutes: 1,
+          callback: async () => {
+            const channel = await guild.channels
+              .fetch("949008251394089010", { force: true })
+              .catch((err) => {});
+            channel?.send?.(
+              `Pan kiedyś stanął nad brzegiem,
+              Szukał ludzi gotowych pójść za Nim;
+              By łowić serca
+              Słów Bożych prawdą. 
+              ...
+              <:Trollpapaj:951219313333895288>`
+            );
+          },
+        })
+      );
+      eventManager.insertEvent(
+        new ScheduledEvent({
+          day: undefined,
+          weekDay: 2,
+          hour: 21,
+          minute: 37,
+          refreshTimeInMinutes: 1,
+          callback: async () => {
+            const channel = await guild.channels
+              .fetch("949008251394089010", { force: true })
+              .catch((err) => {});
+            channel?.send?.(
+              `O Panie, to Ty na mnie spojrzałeś,
+              Twoje usta dziś wyrzekły me imię.
+              Swoją barkę pozostawiam na brzegu,
+              Razem z Tobą nowy zacznę dziś łów.
+              ... <:Trollpapaj:951219313333895288>`
+            );
+          },
+        })
+      );
+      eventManager.insertEvent(
+        new ScheduledEvent({
+          day: undefined,
+          weekDay: 3,
+          hour: 21,
+          minute: 37,
+          refreshTimeInMinutes: 1,
+          callback: async () => {
+            const channel = await guild.channels
+              .fetch("949008251394089010", { force: true })
+              .catch((err) => {});
+            channel?.send?.(
+              `Minuta ciszy dla największego z polaków... <:Trollpapaj:951219313333895288>`
+            );
+          },
+        })
+      );
+      eventManager.insertEvent(
+        new ScheduledEvent({
+          day: undefined,
+          weekDay: 4,
+          hour: 21,
+          minute: 37,
+          refreshTimeInMinutes: 1,
+          callback: async () => {
+            const channel = await guild.channels
+              .fetch("949008251394089010", { force: true })
+              .catch((err) => {});
+            channel?.send?.(
+              `Minuta ciszy dla największego z polaków... <:Trollpapaj:951219313333895288>`
+            );
+          },
+        })
+      );
+      eventManager.insertEvent(
+        new ScheduledEvent({
+          day: undefined,
+          weekDay: 5,
+          hour: 21,
+          minute: 37,
+          refreshTimeInMinutes: 1,
+          callback: async () => {
+            const channel = await guild.channels
+              .fetch("949008251394089010", { force: true })
+              .catch((err) => {});
+            channel?.send?.(
+              `Minuta ciszy dla największego z polaków... <:Trollpapaj:951219313333895288>`
+            );
+          },
+        })
+      );
+      eventManager.insertEvent(
+        new ScheduledEvent({
+          day: undefined,
+          weekDay: 6,
+          hour: 21,
+          minute: 37,
+          refreshTimeInMinutes: 1,
+          callback: async () => {
+            const channel = await guild.channels
+              .fetch("949008251394089010", { force: true })
+              .catch((err) => {});
+            channel?.send?.(
+              `Minuta ciszy dla największego z polaków... <:Trollpapaj:951219313333895288>`
+            );
+          },
+        })
+      );
+      eventManager.insertEvent(
+        new ScheduledEvent({
+          day: undefined,
+          weekDay: 7,
           hour: 21,
           minute: 37,
           refreshTimeInMinutes: 1,

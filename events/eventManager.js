@@ -9,10 +9,12 @@ export class ScheduledEvent {
    *  minute: number
    *  callback: () => void,
    *  refreshTimeInMinutes: number,
+   *  weekDay: number
    * }} param0
    */
   constructor({
     day = undefined,
+    weekDay = undefined,
     hour = undefined,
     minute = undefined,
     callback,
@@ -27,11 +29,13 @@ export class ScheduledEvent {
     this.refreshTimeInMinutes = refreshTimeInMinutes;
     this.locked = locked;
     this.lockReleaseAt = lockReleaseAt;
+    this.weekDay = weekDay;
   }
 
   getData() {
     return {
       day: this.day,
+      weekDay: this.weekDay,
       hour: this.hour,
       minute: this.minute,
       callback: this.callback,
@@ -51,8 +55,6 @@ export class EventManager {
   constructor() {
     this.#runLoop();
   }
-
-  
 
   #runLoop() {
     setInterval(() => {
@@ -86,6 +88,7 @@ export class EventManager {
     
     return (event.day != undefined ? now.getDate() == event.day : true) &&
       (event.hour != undefined ? now.getHours() == event.hour : true) &&
+      (event.weekDay != undefined ? now.getDay() == event.weekDay : true) &&
       (event.minute != undefined
         ? now.getMinutes() == event.minute
         : true) &&
