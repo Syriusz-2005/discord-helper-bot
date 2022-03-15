@@ -4,6 +4,7 @@ import CanvasApi from "canvas";
 import { TurnManager } from "./turnManager.js";
 import { Tile } from "./tile.js";
 import { TileManager } from "./tileManager.js";
+import { roles } from "../../roles.js";
 
 export class TicTacToeGame extends Command {
   /**
@@ -16,7 +17,13 @@ export class TicTacToeGame extends Command {
       description: "Użyj tej komendy aby utworzyć nową grę w kółko i krzyzyk",
     });
     this.name = "h!ticTacToe";
-    this.role = ["@everyone"];
+    this.role = [
+      { id: roles.get("delta") },
+      { id: roles.get("admin") },
+      { id: roles.get("alpha") },
+      { id: roles.get("yt") },
+      { id: roles.get("moderator") },
+    ];
   }
 
   renderGrid(ctx) {
@@ -29,7 +36,7 @@ export class TicTacToeGame extends Command {
   }
 
   update(gameMessage, canvas, currentUserName) {
-    console.log("updating...");
+    
     gameMessage.edit({
       content: `tura: ${currentUserName}`,
       files: [
@@ -98,26 +105,27 @@ export class TicTacToeGame extends Command {
       dispose: true,
     });
 
-   
     reactionCollector.on("collect", (reaction) => {
       reaction.users.cache.map((user) => {
-        if ( user.bot ) return;
+        if (user.bot) return;
         reaction.users.remove(user);
 
-        const playerIndex = players.findIndex( p => p.id === user.id );
-        if ( playerIndex == -1 ) return;
-        if ( turnManager.currentPlayer != playerIndex ) return;
-        const player = players[ playerIndex ];
-        const tileData = all.find( emoji => emoji.r.emoji.identifier === reaction.emoji.identifier );
-        
+        const playerIndex = players.findIndex((p) => p.id === user.id);
+        if (playerIndex == -1) return;
+        if (turnManager.currentPlayer != playerIndex) return;
+        const player = players[playerIndex];
+        const tileData = all.find(
+          (emoji) => emoji.r.emoji.identifier === reaction.emoji.identifier
+        );
+
         try {
-          tileManager.tiles[tileData.y][tileData.x].addPlayer( playerIndex );
-          tileManager.renderTiles( ctx );
-          this.renderGrid( ctx );
+          tileManager.tiles[tileData.y][tileData.x].addPlayer(playerIndex);
+          tileManager.renderTiles(ctx);
+          this.renderGrid(ctx);
           turnManager.nextTurn();
-          this.update( gameMessage, canvas, players[turnManager.currentPlayer] );
+          this.update(gameMessage, canvas, players[turnManager.currentPlayer]);
           const winner = tileManager.checkWin();
-          if ( winner != undefined ) {
+          if (winner != undefined) {
             message.reply(`${players[winner].username} won the game!`);
             reactionCollector.stop();
             return;
