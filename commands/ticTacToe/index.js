@@ -98,9 +98,8 @@ export class TicTacToeGame extends Command {
       dispose: true,
     });
 
-    reactionCollector.collected;
+   
     reactionCollector.on("collect", (reaction) => {
-      console.log("reacted!", reaction.emoji.name);
       reaction.users.cache.map((user) => {
         if ( user.bot ) return;
         reaction.users.remove(user);
@@ -112,13 +111,19 @@ export class TicTacToeGame extends Command {
         const tileData = all.find( emoji => emoji.r.emoji.identifier === reaction.emoji.identifier );
         
         try {
-          tileManager.tiles[tileData.x][tileData.y].addPlayer( playerIndex );
+          tileManager.tiles[tileData.y][tileData.x].addPlayer( playerIndex );
           tileManager.renderTiles( ctx );
           this.renderGrid( ctx );
           turnManager.nextTurn();
           this.update( gameMessage, canvas, players[turnManager.currentPlayer] );
+          const winner = tileManager.checkWin();
+          if ( winner != undefined ) {
+            message.reply(`${players[winner].username} won the game!`);
+            reactionCollector.stop();
+            return;
+          }
         } catch (e) {
-          console.log( e )
+          // console.log( e )
         }
       });
     });

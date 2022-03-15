@@ -13,7 +13,7 @@ export class Tile {
    * @param {number} player 
    */
   addPlayer( player ) {
-    if ( this.player ) throw new Error();
+    if ( this.player == 0 || this.player == 1 ) throw new Error();
 
     this.player = player;
   }

@@ -7,7 +7,7 @@ export class TurnManager {
   currentPlayer = getRandomInt( 0, 2 );
   
   constructor() {
-    console.log( this );
+    
   }
 
   nextTurn() {
