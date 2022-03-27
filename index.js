@@ -82,20 +82,6 @@ client.on("ready", (cl) => {
   client.guilds.cache.each((guild) => {
     if (guild.id === "919174974978273350") {
       const eventManager = new EventManager();
-      // eventManager.insertEvent(
-      //   new ScheduledEvent({
-      //     day: undefined,
-      //     hour: undefined,
-      //     minute: undefined,
-      //     refreshTimeInMinutes: 1,
-      //     callback: async () => {
-      //       const channel = await guild.channels
-      //         .fetch("950018342406750368", { force: true })
-      //         .catch((err) => {});
-      //       channel.send('<:Trollpapaj:951219313333895288>');
-      //     },
-      //   })
-      // );
       eventManager.insertEvent(
         new ScheduledEvent({
           day: undefined,
@@ -151,7 +137,7 @@ Razem z Tobą nowy zacznę dziś łów.
               .fetch("949008251394089010", { force: true })
               .catch((err) => {});
             channel?.send?.(
-              `Minuta ciszy dla największego z polaków... <:Trollpapaj:951219313333895288>`
+              `2137... <:Trollpapaj:951219313333895288>`
             );
           },
         })
@@ -185,7 +171,7 @@ Razem z Tobą nowy zacznę dziś łów.
               .fetch("949008251394089010", { force: true })
               .catch((err) => {});
             channel?.send?.(
-              `Minuta ciszy dla największego z polaków... <:Trollpapaj:951219313333895288>`
+              `Niech Pan was błogosławi! <:Trollpapaj:951219313333895288>`
             );
           },
         })
