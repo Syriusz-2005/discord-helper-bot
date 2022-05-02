@@ -97,7 +97,7 @@ client.on("ready", (cl) => {
               .catch((err) => {});
             const date = new Date();
             const weekDay = date.getDay();
-
+            
             switch (weekDay) {
               case 0:
                 channel?.send?.(
