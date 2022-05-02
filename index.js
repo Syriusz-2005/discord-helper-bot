@@ -23,6 +23,8 @@ const client = new Discord.Client({
     "GUILD_INTEGRATIONS",
     "DIRECT_MESSAGE_REACTIONS",
     "GUILD_MESSAGE_REACTIONS",
+    Intents.FLAGS.GUILD_MEMBERS,
+    "GUILD_PRESENCES",
   ],
   presence: {
     status: "online",
@@ -81,8 +83,28 @@ client.on("ready", (cl) => {
     });
   });
 
-  client.guilds.cache.each((guild) => {
+  client.guilds.cache.each(async (guild) => {
     if (guild.id === "919174974978273350") {
+      const testChannel = await guild.channels
+              .fetch("950018342406750368", { force: true })
+        
+      let streaming = false;
+      setInterval(async () => {
+        const wolffie = (await guild.members.fetch({ user: ['744610005054914590'], withPresences: true })).first();
+        if ( !wolffie ) return;
+        const presence = wolffie.presence;
+        
+        const isStreaming = presence.activities.some( (activity) => activity.type === "STREAMING" );
+        if ( isStreaming && streaming == false ) {
+          //here
+          testChannel.send('@Wolffie zaczął streamować!')
+          streaming = true;
+          return;
+        }
+        
+        if ( !isStreaming ) streaming = false;
+      }, 1000 * 15);
+
       const eventManager = new EventManager();
       eventManager.insertEvent(
         new ScheduledEvent({
