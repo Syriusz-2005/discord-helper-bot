@@ -85,25 +85,40 @@ client.on("ready", (cl) => {
 
   client.guilds.cache.each(async (guild) => {
     if (guild.id === "919174974978273350") {
-      const testChannel = await guild.channels
-              .fetch("950018342406750368", { force: true })
-        
+      const testChannel = await guild.channels.fetch("949006116019404800", {
+        force: true,
+      });
+
       let streaming = false;
       setInterval(async () => {
-        const wolffie = (await guild.members.fetch({ user: ['744610005054914590'], withPresences: true })).first();
-        if ( !wolffie ) return;
+        const wolffie = (
+          await guild.members.fetch({
+            user: ["677250028238143545"],
+            withPresences: true,
+          })
+        ).first();
+        if (!wolffie) return;
         const presence = wolffie.presence;
-        
-        const isStreaming = presence.activities.some( (activity) => activity.type === "STREAMING" );
-        if ( isStreaming && streaming == false ) {
-          //here
-          testChannel.send('@Wolffie zaczął streamować!')
+        const isStreaming = presence.activities.some(
+          (activity) => activity.type === "STREAMING"
+        );
+        if (isStreaming && streaming == false) {
+          const streamingActivity = presence.activities.find(
+            (activity) => activity.type === "STREAMING"
+          );
+
+          testChannel.send({
+            content: `>>> <@&951511632243200090> ** Wolffie właśnie rozpoczął nowy stream! ** \n Zapraszamy: ${streamingActivity.url}`,
+            allowedMentions: {
+              parse: [ "roles" ]
+            },
+          });
           streaming = true;
           return;
         }
-        
-        if ( !isStreaming ) streaming = false;
-      }, 1000 * 15);
+
+        if (!isStreaming) streaming = false;
+      }, 1000 * 4);
 
       const eventManager = new EventManager();
       eventManager.insertEvent(
@@ -119,7 +134,7 @@ client.on("ready", (cl) => {
               .catch((err) => {});
             const date = new Date();
             const weekDay = date.getDay();
-            
+
             switch (weekDay) {
               case 0:
                 channel?.send?.(
