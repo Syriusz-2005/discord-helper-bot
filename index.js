@@ -98,12 +98,12 @@ client.on("ready", (cl) => {
           })
         ).first();
         if (!wolffie) return;
-        const presence = wolffie.presence;
-        const isStreaming = presence.activities.some(
+        const presence = wolffie?.presence;
+        const isStreaming = presence?.activities?.some(
           (activity) => activity.type === "STREAMING"
         );
         if (isStreaming && streaming == false) {
-          const streamingActivity = presence.activities.find(
+          const streamingActivity = presence?.activities.find(
             (activity) => activity.type === "STREAMING"
           );
 
