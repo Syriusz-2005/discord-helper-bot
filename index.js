@@ -68,7 +68,9 @@ client.on("ready", (cl) => {
             return message.reply("This command does not work here!");
           }
 
-        const correctRole = message.member.roles.cache.some((role) =>
+        if (!message.member) return;
+        
+        const correctRole = message.member?.roles?.cache.some((role) =>
           rightCommand.role.some((r) => r == role.name || r?.id == role.id)
         );
         if (!correctRole)
