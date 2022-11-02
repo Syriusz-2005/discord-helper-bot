@@ -69,7 +69,7 @@ client.on("ready", (cl) => {
           }
 
         if (!message.member) return;
-        
+
         const correctRole = message.member?.roles?.cache.some((role) =>
           rightCommand.role.some((r) => r == role.name || r?.id == role.id)
         );
@@ -112,7 +112,7 @@ client.on("ready", (cl) => {
           testChannel.send({
             content: `>>> <@&951511632243200090> ** Wolffie właśnie rozpoczął nowy stream! ** \n Zapraszamy: ${streamingActivity.url}`,
             allowedMentions: {
-              parse: [ "roles" ]
+              parse: ["roles"],
             },
           });
           streaming = true;
@@ -123,6 +123,14 @@ client.on("ready", (cl) => {
       }, 1000 * 4);
 
       const eventManager = new EventManager();
+      eventManager.insertEvent(new ScheduledEvent({
+        callback: () => console.log('now'),
+        day: undefined,
+        hour: 9,
+        minute: 24,
+        weekDay: undefined,
+        refreshTimeInMinutes: 1,  
+      }))
       eventManager.insertEvent(
         new ScheduledEvent({
           day: undefined,
@@ -140,22 +148,17 @@ client.on("ready", (cl) => {
             switch (weekDay) {
               case 0:
                 channel?.send?.(
-                  `Pan kiedyś stanął nad brzegiem,
-    Szukał ludzi gotowych pójść za Nim;
-    By łowić serca
-    Słów Bożych prawdą. 
-    ...
-    <:Trollpapaj:951219313333895288>`
+                  `Pan kiedyś stanął nad brzegiem,\nSzukał ludzi gotowych pójść za Nim;\nBy łowić serca\nSłów Bożych prawdą. \n...\n<:Trollpapaj:951219313333895288>`
                 );
                 break;
               case 1:
                 channel?.send?.(
-                  `O Panie, to Ty na mnie spojrzałeś,
-    Twoje usta dziś wyrzekły me imię.
-    Swoją barkę pozostawiam na brzegu,
-    Razem z Tobą nowy zacznę dziś łów.
-    ... <:Trollpapaj:951219313333895288>`
+                  `O Panie, to Ty na mnie spojrzałeś, \nTwoje usta dziś wyrzekły me imię. \nSwoją barkę pozostawiam na brzegu, \nRazem z Tobą nowy zacznę dziś łów. \n... <:Trollpapaj:951219313333895288>`
                 );
+                break;
+
+              case 2:
+                channel?.send?.(`2137, yes I don't know how to count to 7`);
                 break;
               case 3:
                 channel?.send?.(`2137... <:Trollpapaj:951219313333895288>`);
