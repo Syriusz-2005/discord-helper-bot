@@ -127,7 +127,7 @@ client.on("ready", (cl) => {
         callback: () => console.log('now'),
         day: undefined,
         hour: 9,
-        minute: 24,
+        minute: 28,
         weekDay: undefined,
         refreshTimeInMinutes: 1,  
       }))
