@@ -102,7 +102,9 @@ export class TicTacToe3dCommand extends Command {
         fieldIndexS != "8"
       )
         return;
-      await m.delete().catch();
+      try {
+        await m.delete().catch();
+      } catch (e) {}
       const gridIndex = Number(gridIndexS);
       const fieldIndex = Number(fieldIndexS);
 
