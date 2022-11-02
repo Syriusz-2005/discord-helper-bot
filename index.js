@@ -13,6 +13,7 @@ import { AlertsManager } from "./commands/alerts.js";
 import { ArrestManager } from "./commands/arrest.js";
 import { TicTacToeGame } from "./commands/ticTacToe/index.js";
 import { Say } from "./commands/say.js";
+import {TicTacToe3dCommand} from './commands/ticTacToe3d/index.js';
 
 const client = new Discord.Client({
   intents: [
@@ -49,6 +50,7 @@ client.on("ready", (cl) => {
     new ArrestManager(client),
     new TicTacToeGame(client),
     new Say(),
+    new TicTacToe3dCommand(),
   ];
 
   client.on("message", async (message) => {
