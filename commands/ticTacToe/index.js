@@ -23,6 +23,7 @@ export class TicTacToeGame extends Command {
       { id: roles.get("alpha") },
       { id: roles.get("yt") },
       { id: roles.get("moderator") },
+      "@everyone"
     ];
   }
 

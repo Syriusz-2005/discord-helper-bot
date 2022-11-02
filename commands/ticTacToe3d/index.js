@@ -18,6 +18,7 @@ export class TicTacToe3dCommand extends Command {
       { id: roles.get("alpha") },
       { id: roles.get("yt") },
       { id: roles.get("moderator") },
+      "@everyone"
     ];
   }
 
