@@ -146,7 +146,7 @@ export class TicTacToe3dCommand extends Command {
         break;
       }
 
-      if (x == 1 && y == 1 && z == 1) return;
+      if (x == 1 && y == 1 && gridIndex == 1) return;
 
       console.log(x, y, gridIndex);
 
