@@ -123,14 +123,6 @@ client.on("ready", (cl) => {
       }, 1000 * 4);
 
       const eventManager = new EventManager();
-      eventManager.insertEvent(new ScheduledEvent({
-        callback: () => console.log('now'),
-        day: undefined,
-        hour: 9,
-        minute: 28,
-        weekDay: undefined,
-        refreshTimeInMinutes: 1,  
-      }))
       eventManager.insertEvent(
         new ScheduledEvent({
           day: undefined,
