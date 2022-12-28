@@ -13,7 +13,7 @@ export class Say extends Command  {
       description: "Użyj tej komendy aby napisać coś na czacie"
     })
 		this.name = "h!say";
-		this.role = [ {id: roles.get('admin') } ];
+		this.role = [ {id: roles.get('moderator') } ];
 	}
 
 	/**
