@@ -1,8 +1,7 @@
-import Discord, { MessageAttachment } from "discord.js";
+import Discord from "discord.js";
 import { Command } from "../command.js";
-import CanvasApi from "canvas";
+import CanvasApi from "@napi-rs/canvas";
 import { TurnManager } from "./turnManager.js";
-import { Tile } from "./tile.js";
 import { TileManager } from "./tileManager.js";
 import { roles } from "../../roles.js";
 

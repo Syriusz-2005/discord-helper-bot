@@ -1,5 +1,4 @@
 import { Tile } from "./tile.js";
-import { CanvasRenderingContext2D } from "canvas";
 
 const angleToRadian = function (angle) {
   return (Math.PI / 180) * angle;
