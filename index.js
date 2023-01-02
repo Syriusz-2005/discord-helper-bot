@@ -142,12 +142,12 @@ client.on("ready", (cl) => {
             switch (weekDay) {
               case 0:
                 channel?.send?.(
-                  `Pan kiedyś stanął nad brzegiem,\nSzukał ludzi gotowych pójść za Nim;\nBy łowić serca\nSłów Bożych prawdą. \n...\n<:Trollpapaj:951219313333895288>`
+                  `Pan kiedyś stanął nad brzegiem,\nSzukał ludzi gotowych pójść za Nim;\nBy łowić serca\nSłów Bożych prawdą. \n...\n<:Trollpapaj:1041370294352359496>`
                 );
                 break;
               case 1:
                 channel?.send?.(
-                  `O Panie, to Ty na mnie spojrzałeś, \nTwoje usta dziś wyrzekły me imię. \nSwoją barkę pozostawiam na brzegu, \nRazem z Tobą nowy zacznę dziś łów. \n... <:Trollpapaj:951219313333895288>`
+                  `O Panie, to Ty na mnie spojrzałeś, \nTwoje usta dziś wyrzekły me imię. \nSwoją barkę pozostawiam na brzegu, \nRazem z Tobą nowy zacznę dziś łów. \n... <:Trollpapaj:1041370294352359496>`
                 );
                 break;
 
@@ -155,26 +155,26 @@ client.on("ready", (cl) => {
                 channel?.send?.(`2137, yes I don't know how to count to 7`);
                 break;
               case 3:
-                channel?.send?.(`2137... <:Trollpapaj:951219313333895288>`);
+                channel?.send?.(`2137... <:Trollpapaj:1041370294352359496>`);
                 break;
               case 4:
                 channel?.send?.(
-                  `Minuta ciszy dla największego z polaków... <:Trollpapaj:951219313333895288>`
+                  `Minuta ciszy dla największego z polaków... <:Trollpapaj:1041370294352359496>`
                 );
                 break;
               case 5:
                 channel?.send?.(
-                  `Niech Pan was błogosławi! <:Trollpapaj:951219313333895288>`
+                  `Niech Pan was błogosławi! <:Trollpapaj:1041370294352359496>`
                 );
                 break;
               case 6:
                 channel?.send?.(
-                  `Minuta ciszy dla największego z polaków... <:Trollpapaj:951219313333895288>`
+                  `Minuta ciszy dla największego z polaków... <:Trollpapaj:1041370294352359496>`
                 );
                 break;
               case 7:
                 channel?.send?.(
-                  `Minuta ciszy dla największego z polaków... <:Trollpapaj:951219313333895288>`
+                  `Minuta ciszy dla największego z polaków... <:Trollpapaj:1041370294352359496>`
                 );
                 break;
             }
