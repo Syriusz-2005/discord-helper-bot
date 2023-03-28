@@ -129,7 +129,16 @@ client.on("ready", (cl) => {
         new ScheduledEvent({
           day: undefined,
           weekDay: undefined,
-          hour: 21,
+          hour: 
+            new Date().getMonth() > 2 
+            ? new Date().getMonth() < 9 
+              ? 20 
+              : new Date().getMonth() === 9 && new Date().getDate() <= 29 
+                ? 20 
+                : 21
+            : new Date().getMonth() === 2 && new Date().getDate() <= 26
+              ? 21
+              : 20,
           minute: 37,
           refreshTimeInMinutes: 1,
           callback: async () => {
